@@ -1,0 +1,180 @@
+.main-menu {
+  --menu-copy-left: 5.8%;
+  --menu-copy-top: 56%;
+  --menu-copy-width: 36%;
+  --menu-button-top-gap: 28px;
+  --menu-character-size: clamp(310px, 33vw, 560px);
+  --menu-male-right: 26%;
+  --menu-male-bottom: 0%;
+  --menu-female-right: 10%;
+  --menu-female-bottom: 0%;
+}
+
+.main-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    linear-gradient(180deg, rgba(9, 8, 16, 0.2), rgba(9, 8, 16, 0.44)),
+    url("../../assets/images/main.menu.png") center center / cover no-repeat;
+  image-rendering: pixelated;
+}
+
+.main-menu::before {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  background:
+    linear-gradient(90deg, rgba(7, 6, 13, 0.12), rgba(7, 6, 13, 0.5)),
+    url("../../assets/images/main.menu.png") center center / cover no-repeat;
+  filter: blur(10px) brightness(0.55);
+  transform: scale(1.04);
+}
+
+.main-menu.is-hidden {
+  display: none;
+}
+
+.main-menu-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(100vw, 150vh);
+  height: min(100vh, 66.6667vw);
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(7, 6, 13, 0.12), rgba(7, 6, 13, 0.5)),
+    url("../../assets/images/main.menu.png") center center / 100% 100% no-repeat;
+  box-shadow: 0 0 0 1px rgba(255, 244, 210, 0.18);
+}
+
+.main-menu-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(3, 2, 8, 0.32), transparent 62%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.52), transparent 36%);
+}
+
+.main-menu.is-selecting-character .main-menu-frame {
+  background:
+    linear-gradient(180deg, rgba(5, 4, 10, 0.28), rgba(5, 4, 10, 0.68)),
+    url("../../assets/images/transparent.png") center center / 92% auto no-repeat;
+}
+
+.main-menu.is-selecting-character .main-menu-frame::before {
+  content: "";
+  position: absolute;
+  inset: -8%;
+  background: url("../../assets/images/transparent.png") center center / 94% auto no-repeat;
+  filter: blur(12px) brightness(0.72);
+  transform: scale(1.04);
+}
+
+.main-menu.is-selecting-character .main-menu-frame::after {
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 244, 210, 0.08), transparent 34%),
+    rgba(0, 0, 0, 0.38);
+}
+
+.main-menu.is-selecting-character .main-menu-content {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.main-menu-content {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+}
+
+.main-menu-copy {
+  position: absolute;
+  left: var(--menu-copy-left);
+  top: var(--menu-copy-top);
+  width: var(--menu-copy-width);
+}
+
+.main-menu p {
+  margin: 0 0 12px;
+  color: #fff4d2;
+  font-size: clamp(0.98rem, 1.3vw, 1.25rem);
+  line-height: 1.35;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.85);
+}
+
+.main-menu-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: var(--menu-button-top-gap);
+}
+
+.main-menu-actions .pixel-button {
+  min-width: 190px;
+}
+
+.menu-characters {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.menu-character {
+  position: absolute;
+  width: var(--menu-character-size);
+  aspect-ratio: 1;
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 100% 200%;
+  filter: drop-shadow(10px 14px 0 rgba(0, 0, 0, 0.38));
+  animation: dev-idle 1s steps(1, end) infinite;
+}
+
+.menu-character-male {
+  right: var(--menu-male-right);
+  bottom: var(--menu-male-bottom);
+  background-image: url("../../assets/images/male-character-animation.png");
+}
+
+.menu-character-female {
+  right: var(--menu-female-right);
+  bottom: var(--menu-female-bottom);
+  background-image: url("../../assets/images/female.dev.png");
+}
+
+@media (max-width: 960px) {
+  .main-menu {
+    overflow: auto;
+    --menu-copy-left: 24px;
+    --menu-copy-top: 42vh;
+    --menu-copy-width: calc(100% - 48px);
+    --menu-character-size: min(260px, 48vw);
+    --menu-male-right: 36%;
+    --menu-male-bottom: 18vh;
+    --menu-female-right: 4%;
+    --menu-female-bottom: 18vh;
+  }
+
+  .main-menu-frame {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    transform: none;
+    background-size: cover;
+  }
+
+  .main-menu-content {
+    min-height: 100vh;
+  }
+}
