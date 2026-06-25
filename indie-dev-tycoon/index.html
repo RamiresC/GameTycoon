@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <!-- Documento principal: declara telas fixas e carrega estilos e scripts por dependencia. -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Indie Dev Pressure</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ui/transitions.css">
+  <link rel="stylesheet" href="css/ui/main-menu.css">
+  <link rel="stylesheet" href="css/ui/character-selector.css">
+  <link rel="stylesheet" href="css/ui/computer.css">
+  <link rel="stylesheet" href="css/ui/startup-setup.css">
+  <link rel="stylesheet" href="css/ui/tutorial.css">
+</head>
+<body>
+  <!-- Camadas globais de apresentacao, transicao e audio. -->
+  <div class="scanlines" aria-hidden="true"></div>
+  <div id="fadeOverlay" class="fade-overlay" aria-hidden="true"></div>
+  <audio id="bgMusic" preload="auto"></audio>
+  <section id="mainMenu" class="main-menu" aria-label="Menu principal">
+    <div class="main-menu-frame">
+      <div class="main-menu-content">
+        <div class="main-menu-copy">
+          <p>Entre madrugadas, café e prazos impossíveis, um novo jogo começa a tomar forma. E depois outro. E, quem sabe, mais um?</p>
+          <p>Transforme ideias em sucessos, faça amigos pela indústria e construa sua própria história no mundo dos games.</p>
+          <div id="menuActions" class="main-menu-actions">
+            <button class="pixel-button green" onclick="showCharacterSelect()">Iniciar</button>
+          </div>
+        </div>
+        <div class="menu-characters" aria-hidden="true">
+          <div class="menu-character menu-character-male"></div>
+          <div class="menu-character menu-character-female"></div>
+        </div>
+      </div>
+      <div id="characterSelect" class="character-select" hidden>
+        <h2>Escolha seu dev</h2>
+        <div class="character-options">
+          <button class="character-card" onclick="selectCharacter('male')">
+            <span class="character-preview character-preview-male"></span>
+            <strong>Homem</strong>
+          </button>
+          <button class="character-card" onclick="selectCharacter('female')">
+            <span class="character-preview character-preview-female"></span>
+            <strong>Mulher</strong>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="startupSetup" class="startup-setup" aria-label="Dados iniciais" hidden>
+    <form class="startup-setup-panel" onsubmit="submitStartupSetup(event)">
+      <h2>Antes do primeiro commit</h2>
+      <label>Nome do personagem
+        <input name="developerName" maxlength="28" value="Dev Indie" autocomplete="off">
+      </label>
+      <label>Nome da empresa
+        <input name="studioName" maxlength="28" value="Koshi INC" autocomplete="off">
+      </label>
+      <button class="pixel-button green" type="submit">Começar</button>
+    </form>
+  </section>
+  <section id="officeIntro" class="office-intro" aria-label="Introducao no escritorio" onclick="advanceOfficeIntro()" onkeydown="handleOfficeIntroKey(event)" tabindex="-1" hidden>
+    <div class="office-intro-frame">
+      <div id="officeIntroCharacter" class="office-intro-character" role="img" aria-label="Dev sentado no escritorio"></div>
+      <div id="officeIntroTextBox" class="office-intro-textbox" aria-live="polite">
+        <p id="officeIntroText"></p>
+      </div>
+    </div>
+  </section>
+  <main class="app scene-app">
+    <!-- Cena persistente; paineis dinamicos sao renderizados dentro de #app. -->
+    <header id="topbar" class="topbar"></header>
+    <section class="scene" aria-label="Escritorio indie lo-fi">
+      <div class="scene-frame">
+      <div class="dev-sprite" role="img" aria-label="Desenvolvedor indie trabalhando"></div>
+      <div id="speechBubble" class="speech-bubble"></div>
+      <button class="hotspot hotspot-computer" onclick="openSceneWindow('desk')" aria-label="Computador"></button>
+      <button class="hotspot hotspot-shelf" onclick="openSceneWindow('shelf')" aria-label="Estante"></button>
+      <button class="hotspot hotspot-window" onclick="openSceneWindow('window')" aria-label="Janela"></button>
+      <button class="hotspot hotspot-bed" onclick="sleepOneWeek()" aria-label="Dormir"></button>
+      <div class="hud-controls">
+        <button id="menuButton" class="hud-icon-button menu-button" onclick="toggleGameMenuPanel()" aria-label="Menu"></button>
+        <button id="musicButton" class="hud-icon-button music-button" onclick="toggleMusicPanel()" aria-label="Musica"></button>
+        <div id="gameMenuPanel" class="hud-panel game-menu-panel" hidden>
+          <button class="pixel-button green" onclick="saveGame()">Salvar</button>
+          <button class="pixel-button secondary" onclick="loadGame()">Carregar</button>
+          <button class="pixel-button danger" onclick="returnToMainMenu()">Voltar ao menu</button>
+        </div>
+        <div id="musicPanel" class="hud-panel music-panel" hidden></div>
+      </div>
+      <div id="app" class="floating-ui"></div>
+      </div>
+    </section>
+  </main>
+  <!-- Dados e estado sao carregados antes dos sistemas e da interface. -->
+  <script src="js/utils.js"></script>
+  <script src="js/data/game-data.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/systems/project.js"></script>
+  <script src="js/systems/week.js"></script>
+  <script src="js/systems/marketing.js"></script>
+  <script src="js/systems/reviews.js"></script>
+  <script src="js/systems/sales.js"></script>
+  <script src="js/systems/rankings.js"></script>
+  <script src="js/ui/render.js"></script>
+  <script src="js/ui/modal.js"></script>
+  <script src="js/ui/main-menu.js"></script>
+  <script src="js/ui/hud-menu.js"></script>
+  <script src="js/ui/transitions.js"></script>
+  <script src="js/ui/character-selector.js"></script>
+  <script src="js/ui/office-intro.js"></script>
+  <script src="js/ui/tutorial.js"></script>
+  <script src="js/ui/startup-setup.js"></script>
+  <script src="js/systems/save-load.js"></script>
+  <script src="js/systems/audio.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

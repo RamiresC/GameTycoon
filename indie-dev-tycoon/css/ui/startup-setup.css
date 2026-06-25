@@ -1,0 +1,278 @@
+/* Cadastro inicial e cutscene do escritorio, incluindo sprites por personagem. */
+
+.startup-setup {
+  position: fixed;
+  inset: 0;
+  z-index: 82;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  color: var(--ink);
+  background:
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 4px),
+    #000;
+}
+
+.startup-setup[hidden] {
+  display: none;
+}
+
+.startup-setup-panel {
+  width: min(520px, 100%);
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 4px solid #2b1b31;
+  background: rgba(18, 15, 28, 0.96);
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+}
+
+.startup-setup-panel h2 {
+  margin: 0;
+  color: var(--cyan);
+  text-shadow: 2px 2px 0 #000;
+}
+
+.startup-setup-panel input {
+  color: var(--yellow);
+  font-weight: 700;
+}
+
+.office-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow: hidden;
+  color: var(--ink);
+  background: #05050a;
+  cursor: pointer;
+  image-rendering: pixelated;
+}
+
+.office-intro[hidden] {
+  display: none;
+}
+
+.office-intro-frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 10, 0.04), rgba(5, 5, 10, 0.34)),
+    url("../../assets/images/office.png") center top / cover no-repeat;
+  transform: scale(1.08) translateY(-8%);
+}
+
+.office-intro.is-ready .office-intro-frame {
+  animation: office-intro-camera 2.7s ease-out forwards;
+}
+
+
+
+.office-intro-character {
+  --office-character-frames: 2;
+  --office-character-sheet-height: 200%;
+  --office-character-final-frame: 100%;
+  --office-character-x: 45%;
+  --office-character-y: 45%;
+  --office-character-start-y: -26%;
+  --office-character-width: 520px;
+  position: absolute;
+  width: var(--office-character-width);
+  left: var(--office-character-x);
+  top: var(--office-character-y);
+  aspect-ratio: 1;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 100% var(--office-character-sheet-height);
+  transform: translateX(-50%);
+  filter: drop-shadow(10px 14px 0 rgba(0, 0, 0, 0.35));
+  opacity: 0;
+  image-rendering: pixelated;
+}
+
+.office-intro-character-female-chair,
+.office-intro-character-female {
+  --office-character-x: 45%;
+  --office-character-y: 45%;
+  --office-character-start-y: -26%;
+  --office-character-width: 520px;
+}
+
+.office-intro-character-male-chair,
+.office-intro-character-male {
+  --office-character-x: 45%;
+  --office-character-y: 30%;
+  --office-character-start-y: -26%;
+  --office-character-width: 800px;
+}
+
+.office-intro-character-male-chair {
+  background-image: url("../../assets/images/male.dev.chair.sad.png");
+}
+
+.office-intro-character-male {
+  background-image: url("../../assets/images/male-character-animation.png");
+}
+
+.office-intro-character-female-chair {
+  background-image: url("../../assets/images/female.dev.chair.sad.png");
+}
+
+.office-intro-character-female {
+  background-image: url("../../assets/images/female.dev.png");
+}
+
+.office-intro.is-ready .office-intro-character {
+  animation:
+    office-intro-character-drop 2.5s ease-out forwards,
+    office-intro-character-idle 1s steps(1, end) infinite;
+}
+
+.office-intro-textbox {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(24px, 8vh, 76px);
+  width: min(840px, calc(100% - 42px));
+  min-height: 118px;
+  padding: 18px 20px;
+  border: 4px solid #201524;
+  color: #241626;
+  background: rgba(255, 244, 210, 0.96);
+  box-shadow: 7px 7px 0 rgba(0, 0, 0, 0.62);
+  transform: translateX(-50%) translateY(20px) scale(0.98);
+  opacity: 0;
+}
+
+.office-intro-textbox.is-visible {
+  animation: office-textbox-in 320ms steps(3, end) forwards;
+}
+
+.office-intro-textbox p {
+  min-height: 56px;
+  margin: 0;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.35;
+}
+
+.office-intro-textbox p::after {
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 1em;
+  margin-left: 4px;
+  background: #241626;
+  vertical-align: -0.12em;
+  animation: office-caret-blink 650ms steps(1, end) infinite;
+}
+
+.office-intro-textbox .pixel-button {
+  margin-top: 14px;
+}
+
+@keyframes office-intro-camera {
+  0% {
+    opacity: 0;
+    background-position: center top;
+    transform: scale(1.08) translateY(-8%);
+  }
+
+  24% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    background-position: center center;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes office-intro-character-drop {
+  0% {
+    top: var(--office-character-start-y);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    top: var(--office-character-y);
+    opacity: 1;
+  }
+}
+
+@keyframes office-intro-character-idle {
+  0%,
+  49.99% {
+    background-position: 0 0;
+  }
+
+  50%,
+  100% {
+    background-position: 0 var(--office-character-final-frame);
+  }
+}
+
+@keyframes office-textbox-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+@keyframes office-caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 960px) {
+  .office-intro-frame {
+    background-size: auto 100%;
+  }
+
+  .office-intro-character-female-chair,
+  .office-intro-character-female {
+    --office-character-y: 25%;
+    --office-character-start-y: -22%;
+    --office-character-width: clamp(220px, 46vw, 340px);
+  }
+
+  .office-intro-character-male-chair,
+  .office-intro-character-male {
+    --office-character-y: 25%;
+    --office-character-start-y: -22%;
+    --office-character-width: clamp(220px, 46vw, 340px);
+  }
+
+  .office-intro.is-ready .office-intro-character {
+    animation:
+      office-intro-character-drop-mobile 2.5s ease-out forwards,
+      office-intro-character-idle 1s steps(1, end) infinite;
+  }
+}
+
+@keyframes office-intro-character-drop-mobile {
+  0% {
+    top: var(--office-character-start-y);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    top: var(--office-character-y);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,190 @@
+/* Tutorial: destaques, bloqueios, dicas contextuais e animacoes de erro. */
+
+.tutorial-target {
+  position: relative;
+  z-index: 45 !important;
+  outline: 4px solid var(--yellow) !important;
+  outline-offset: 5px;
+  box-shadow:
+    0 0 0 4px rgba(32, 21, 36, 0.8),
+    0 0 24px rgba(255, 226, 138, 0.72) !important;
+  animation: tutorial-target-pulse 1s steps(2, end) infinite;
+}
+
+.tutorial-hud-showcase {
+  position: relative;
+  z-index: 45;
+  outline: 4px solid var(--yellow);
+  outline-offset: 5px;
+  box-shadow:
+    0 0 0 4px rgba(32, 21, 36, 0.8),
+    0 0 24px rgba(255, 226, 138, 0.72) !important;
+  animation: tutorial-target-pulse 1s steps(2, end) infinite;
+}
+
+.tutorial-target::after {
+  position: absolute;
+  z-index: 60;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  width: max-content;
+  max-width: 240px;
+  padding: 8px 10px;
+  border: 3px solid #201524;
+  color: #201524;
+  background: var(--yellow);
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.6);
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  pointer-events: none;
+}
+
+body.tutorial-target-ambition .tutorial-target::after {
+  content: "Coloque em 5";
+}
+
+body.tutorial-target-game-name .tutorial-target::after {
+  content: "Digite um nome";
+}
+
+body.tutorial-target-weeks .tutorial-target::after {
+  content: "Digite 10 semanas";
+}
+
+body.tutorial-target-price .tutorial-target::after {
+  content: "Use $" var(--tutorial-suggested-price);
+}
+
+body.tutorial-target-focus-programming .tutorial-target::after {
+  content: "Foque Programacao";
+}
+
+body.tutorial-target-focus-graphics .tutorial-target::after {
+  content: "Foque Graficos";
+}
+
+body.tutorial-target-focus-design .tutorial-target::after {
+  content: "Foque Design";
+}
+
+body.tutorial-target-focus-sound .tutorial-target::after {
+  content: "Foque Som";
+}
+
+body.tutorial-target-focus-polish .tutorial-target::after {
+  content: "Foque Polimento";
+}
+
+body.tutorial-target-marketing-tab .tutorial-target::after {
+  content: "Abra Marketing";
+}
+
+body.tutorial-target-marketing-interact .tutorial-target::after {
+  content: "Clique Interagir";
+}
+
+body.tutorial-target-game-tab .tutorial-target::after {
+  content: "Abra Jogo";
+}
+
+body.tutorial-target-beta .tutorial-target::after {
+  content: "Lance o beta";
+}
+
+body.tutorial-target-free-week .tutorial-target::after {
+  content: "Escolha livre";
+}
+
+body.tutorial-target-bed .tutorial-target::after {
+  content: "Durma 1 semana";
+}
+
+body.tutorial-target-attributes .tutorial-target::after {
+  content: "Seus atributos";
+}
+
+body.tutorial-target-attributes-allocation .tutorial-target::after {
+  content: "Distribua os 20 pontos";
+}
+
+body.tutorial-target-xp .tutorial-target::after {
+  content: "Experiencia";
+}
+
+body.tutorial-target-bills .tutorial-target::after {
+  content: "Contas mensais";
+}
+
+body.tutorial-target-bed-final .tutorial-target::after {
+  content: "Durma 1 semana";
+}
+
+body.tutorial-target-computer .hotspot-computer::before {
+  opacity: 1;
+  border-color: var(--yellow);
+  box-shadow:
+    0 0 0 2px rgba(32, 21, 36, 0.95),
+    5px 5px 0 rgba(255, 226, 138, 0.8),
+    -5px -5px 0 rgba(255, 226, 138, 0.56),
+    0 0 22px rgba(255, 226, 138, 0.55);
+  animation: tutorial-target-pulse 1s steps(2, end) infinite;
+}
+
+body.tutorial-target-bed .hotspot-bed::before,
+body.tutorial-target-bed-final .hotspot-bed::before {
+  opacity: 1;
+  border-color: var(--yellow);
+  box-shadow:
+    0 0 0 2px rgba(32, 21, 36, 0.95),
+    5px 5px 0 rgba(255, 226, 138, 0.8),
+    -5px -5px 0 rgba(255, 226, 138, 0.56),
+    0 0 22px rgba(255, 226, 138, 0.55);
+  animation: tutorial-target-pulse 1s steps(2, end) infinite;
+}
+
+body.tutorial-active .hotspot:not(.tutorial-target),
+body.tutorial-active .hud-controls,
+body.tutorial-active .window-close,
+body.tutorial-active .computer-close,
+body.tutorial-active .computer-tab:not(.tutorial-target) {
+  pointer-events: none;
+}
+
+body.tutorial-target-free-week .hotspot,
+body.tutorial-target-free-week .hud-controls,
+body.tutorial-target-free-week .window-close,
+body.tutorial-target-free-week .computer-close,
+body.tutorial-target-free-week .computer-tab {
+  pointer-events: auto;
+}
+
+.scene-frame.tutorial-tilt {
+  animation: tutorial-tilt 260ms steps(2, end);
+}
+
+@keyframes tutorial-target-pulse {
+  50% {
+    filter: brightness(1.18);
+  }
+}
+
+@keyframes tutorial-tilt {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  35% {
+    transform: translate(-50%, -50%) rotate(-0.65deg);
+  }
+
+  70% {
+    transform: translate(-50%, -50%) rotate(0.55deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}

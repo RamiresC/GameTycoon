@@ -1,0 +1,36 @@
+/* Transicoes globais entre menu, cadastro, cutscene e jogo. */
+
+body:not(.game-started) .scene-app {
+  visibility: hidden;
+}
+
+.fade-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  opacity: 0;
+  background: #000;
+}
+
+.fade-overlay.is-fading {
+  animation: full-scene-fade 5.2s ease-in-out forwards;
+}
+
+@keyframes full-scene-fade {
+  0% {
+    opacity: 0;
+  }
+
+  26% {
+    opacity: 1;
+  }
+
+  62% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
